@@ -235,7 +235,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                 if CurrentCops >= Config.MinimumHouseRobberyPolice then
                     if not Config.Houses[closestHouse]["opened"] then
                         PoliceCall()
-                        TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+                        TriggerEvent('kwk-lockpick:client:openLockpick', lockpickFinish)
                         if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                             local pos = GetEntityCoords(PlayerPedId())
                             TriggerServerEvent("evidence:server:CreateFingerDrop", pos)
@@ -254,7 +254,7 @@ RegisterNetEvent('lockpicks:UseLockpick', function(isAdvanced)
                         if CurrentCops >= Config.MinimumHouseRobberyPolice then
                             if not Config.Houses[closestHouse]["opened"] then
                                 PoliceCall()
-                                TriggerEvent('qb-lockpick:client:openLockpick', lockpickFinish)
+                                TriggerEvent('kwk-lockpick:client:openLockpick', lockpickFinish)
                                 if math.random(1, 100) <= 85 and not IsWearingHandshoes() then
                                     local pos = GetEntityCoords(PlayerPedId())
                                     TriggerServerEvent("evidence:server:CreateFingerDrop", pos)

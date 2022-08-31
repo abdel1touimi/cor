@@ -105,6 +105,36 @@ Config.Products = {
             type = "item",
             slot = 12,
         },
+        [13] = {
+            name = "redwoodcigs",
+            price = 200,
+            amount = 5000,
+            info = {
+                uses = 20
+            },
+            type = "item",
+            slot = 13,
+        },
+        [14] = {
+            name = "cardiaquecigs",
+            price = 200,
+            amount = 5000,
+            info = {
+                uses = 20
+            },
+            type = "item",
+            slot = 14,
+        },
+        [15] = {
+            name = "yukoncigs",
+            price = 200,
+            amount = 5000,
+            info = {
+                uses = 20
+            },
+            type = "item",
+            slot = 15,
+        },
     },
     ["liquor"] = {
         [1] = {

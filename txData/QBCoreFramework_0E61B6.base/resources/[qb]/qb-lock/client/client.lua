@@ -2,14 +2,18 @@ local QBCore = exports['qb-core']:GetCoreObject()
 local Result = nil
 local NUI_status = false
 
-RegisterNetEvent('kwk-lockpick:client:openLockpick', function(callback, circles)
-    lockpickCallback = callback
-    exports['qb-lock']:StartLockPickCircle(total,circles) 
+RegisterNetEvent('kwk-lockpick:client:openLockpick', function(callback)
+    local seconds = math.random(9,12)
+    local circles = math.random(2,4)
+    local success = exports['qb-lock']:StartLockPickCircle(circles, seconds, callback)
+    if success then
+        callback(true)
+        QBCore.Functions.Notify("Lock Opened", "success")
+    end
 end)
 
 function StartLockPickCircle(circles, seconds, callback)
     Result = nil
-	print(circles, "This be the lock")
     NUI_status = true
     SendNUIMessage({
         action = 'start',
@@ -39,6 +43,5 @@ RegisterNUICallback('success', function()
 	Wait(100)
 	NUI_status = false
     SetNuiFocus(false, false)
-    print(Result)
     return Result
 end)

@@ -151,8 +151,7 @@ function startGame(time){
         }else{
             time = 2
         }
-		console.log(event.data.time)
-      startGame(time)
+        startGame(time)
     }
   })
 
