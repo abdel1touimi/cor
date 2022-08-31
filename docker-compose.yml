@@ -1,0 +1,28 @@
+version: '3'
+volumes:
+  fivem_data:
+services:
+  cor-server:
+    build: .
+    container_name: cor-server-container
+    ports:
+      - 40120:40120
+      - "30120:30120/tcp"
+      - "30120:30120/udp"
+    volumes:
+      - './txData:/opt/FiveM/txData'
+    links:
+      - cor-db
+  # mysql
+  cor-db:
+    image: mysql:8
+    container_name: cor-db-container
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always # always restart unless stopped manually
+    environment:
+      MYSQL_ROOT_PASSWORD: dbsecret
+      MYSQL_PASSWORD: dbsecret
