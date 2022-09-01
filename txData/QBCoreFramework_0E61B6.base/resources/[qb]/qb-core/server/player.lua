@@ -424,7 +424,7 @@ function QBCore.Player.CreatePlayer(PlayerData, Offline)
 
     function self.Functions.GetCardSlot(cardNumber, cardType)
         local item = tostring(cardType):lower()
-        local slots = exports['qb-inventory']:GetSlotsByItem(self.PlayerData.items, item)
+        local slots = exports['lj-inventory']:GetSlotsByItem(self.PlayerData.items, item)
         for _, slot in pairs(slots) do
             if slot then
                 if self.PlayerData.items[slot].info.cardNumber == cardNumber then
@@ -639,23 +639,23 @@ function QBCore.Player.SaveInventory(source)
 end
 
 function QBCore.Player.SaveOfflineInventory(PlayerData)
-    if GetResourceState('qb-inventory') == 'missing' then return end
-    exports['qb-inventory']:SaveInventory(PlayerData, true)
+    if GetResourceState('lj-inventory') == 'missing' then return end
+    exports['lj-inventory']:SaveInventory(PlayerData, true)
 end
 
 function QBCore.Player.GetTotalWeight(items)
-    if GetResourceState('qb-inventory') == 'missing' then return end
-    return exports['qb-inventory']:GetTotalWeight(items)
+    if GetResourceState('lj-inventory') == 'missing' then return end
+    return exports['lj-inventory']:GetTotalWeight(items)
 end
 
 function QBCore.Player.GetSlotsByItem(items, itemName)
-    if GetResourceState('qb-inventory') == 'missing' then return end
-    return exports['qb-inventory']:GetSlotsByItem(items, itemName)
+    if GetResourceState('lj-inventory') == 'missing' then return end
+    return exports['lj-inventory']:GetSlotsByItem(items, itemName)
 end
 
 function QBCore.Player.GetFirstSlotByItem(items, itemName)
-    if GetResourceState('qb-inventory') == 'missing' then return end
-    return exports['qb-inventory']:GetFirstSlotByItem(items, itemName)
+    if GetResourceState('lj-inventory') == 'missing' then return end
+    return exports['lj-inventory']:GetFirstSlotByItem(items, itemName)
 end
 
 -- Util Functions
