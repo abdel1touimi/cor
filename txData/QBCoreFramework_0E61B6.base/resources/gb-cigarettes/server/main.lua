@@ -46,7 +46,7 @@ RegisterNetEvent('cigarettes:server:RemoveCigarette', function(hp, data)
     end
 end)
 
--- Cigarette Pack Damage
+-- Cigarette Pack Opened
 RegisterNetEvent('cigarettes:server:addCigarette', function(hp, data)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
