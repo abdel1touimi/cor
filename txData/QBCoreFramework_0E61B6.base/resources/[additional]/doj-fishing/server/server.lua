@@ -358,6 +358,19 @@ RegisterNetEvent('fishing:server:BuyFishingGear', function(args)
 	end
 end)
 
+-- Cigarette Pack Opened
+RegisterNetEvent('fishing:server:removeFishingkey', function()
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	Player.Functions.RemoveItem("fishingkey", 1)
+end)
+
+-- Cigarette Pack Opened
+RegisterNetEvent('fishing:server:removeFishinglootbig', function()
+	local src = source
+	local Player = QBCore.Functions.GetPlayer(src)
+	Player.Functions.RemoveItem("fishinglootbig", 1)
+end)
 
 --============================================================================ Callbacks
 QBCore.Functions.CreateCallback('fishing:server:checkMoney', function(source, cb)

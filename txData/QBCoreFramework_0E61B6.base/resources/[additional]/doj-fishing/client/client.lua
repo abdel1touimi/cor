@@ -613,11 +613,11 @@ end
 
 openedTreasureChest = function()
 	if math.random(1,15) < 10 then
-		TriggerServerEvent("QBCore:Server:RemoveItem", "fishingkey", 1)
+		TriggerServerEvent("fishing:server:removeFishingkey")
 		TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["fishingkey"], "remove", 1)
 		QBCore.Functions.Notify("The corroded key has snapped", "error", 7500)
 	end
-	TriggerServerEvent("QBCore:Server:RemoveItem", "fishinglootbig", 1)
+	TriggerServerEvent("fishing:server:removeFishinglootbig")
 	TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["fishinglootbig"], "remove", 1)
 	QBCore.Functions.Notify("Treasure chest opened! Be sure to collect all of your loot!!", "success", 7500)
 	local ShopItems = {} 
