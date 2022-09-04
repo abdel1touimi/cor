@@ -82,7 +82,35 @@ Config.TargetBones = {
 }
 
 Config.TargetModels = {
-
+	["mesa_craft"] = {
+		models = {
+				"prop_tool_bench02_ld",
+		},
+		options = {
+				{
+						type = "client",
+						event = "mt-crafting:client:AbrirMenuCraft",
+						icon = "fas fa-table", 
+						label = "Craft Things",
+				},
+				{
+						type = "client",
+						icon = "fas fa-table", 
+						label = "Delete Table",
+						action = function(entity) -- This is the action it has to perform, this REPLACES the event and this is OPTIONAL
+							if IsPedAPlayer(entity) then return false end -- This will return false if the entity interacted with is a player and otherwise returns true
+							TriggerEvent('mt-crafting:client:EliminarMesa', entity) -- Triggers a client event called testing:event and sends the argument 'test' with it
+						end,
+				},
+										{
+						type = "client",
+						event = "mt-crafting:client:VerificarPontos",
+						icon = "fas fa-coins", 
+						label = "Check Points",
+				}
+		},
+		distance = 2.5,
+	},
 }
 
 Config.GlobalPedOptions = {

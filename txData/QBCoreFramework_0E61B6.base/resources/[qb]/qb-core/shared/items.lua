@@ -463,6 +463,19 @@ QBShared.Items = {
 	["pig_leather"]						= {["name"] = "pig_leather",  	  		["label"] = "Pig Skin",	   		["weight"] = 50, 		["type"] = "item", 		["image"] = "pig_leather.png", 			["unique"] = false, 	["useable"] = false, 	["shouldClose"] = true,   	["combinable"] = nil,   ["description"] = ""},
 	["cow_leather"]						= {["name"] = "cow_leather",  	  		["label"] = "Cow Skin",	  		["weight"] = 50, 		["type"] = "item", 		["image"] = "cow_leather.png", 			["unique"] = false, 	["useable"] = false, 	["shouldClose"] = true,   	["combinable"] = nil,   ["description"] = ""},
 
+	-- mt-methlabs
+	["meth_jobrecive"]  		= {["name"] = "meth_jobrecive", 				["label"] = "Key Job Recive", 								["weight"] = 100, 		["type"] = "item", 			["image"] = "meth_jobrecive.png", 					["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["meth_key"]  				= {["name"] = "meth_key", 						["label"] = "Labs Key", 									["weight"] = 100, 		["type"] = "item", 			["image"] = "meth_key.png", 						["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["meth"]  					= {["name"] = "meth", 							["label"] = "Meth", 										["weight"] = 100, 		["type"] = "item", 			["image"] = "meth.png", 							["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["hydrochloric_acid"]  		= {["name"] = "hydrochloric_acid", 				["label"] = "Hydrochloric Acid", 							["weight"] = 100, 		["type"] = "item", 			["image"] = "hydrochloric_acid.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["sodium_hydroxide"]  		= {["name"] = "sodium_hydroxide", 				["label"] = "Sodium Hydroxide", 							["weight"] = 100, 		["type"] = "item", 			["image"] = "sodium_hydroxide.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["sulfuric_acid"]  			= {["name"] = "sulfuric_acid", 					["label"] = "Sulfuric Acid", 								["weight"] = 100, 		["type"] = "item", 			["image"] = "sulfuric_acid.png", 					["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["meth_baggies"]  			= {["name"] = "meth_baggies", 					["label"] = "Meth Baggies", 								["weight"] = 100, 		["type"] = "item", 			["image"] = "meth_baggies.png", 					["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+	["meth_epmty_baggies"]  	= {["name"] = "meth_epmty_baggies", 			["label"] = "Empty Baggies", 								["weight"] = 100, 		["type"] = "item", 			["image"] = "meth_epmty_baggies.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+
+	-- mt-crafting 2.0
+	["mesa_craft"]  	= {["name"] = "mesa_craft", 			["label"] = "Crafting table", 								["weight"] = 70000, 		["type"] = "item", 			["image"] = "mesa_craft.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
+
 	-- logger
 	["tree_lumber"]						= {["name"] = "tree_lumber",  	  		["label"] = "Lumber",	  		["weight"] = 50, 		["type"] = "item", 		["image"] = "lumber.png", 			["unique"] = false, 	["useable"] = false, 	["shouldClose"] = true,   	["combinable"] = nil,   ["description"] = ""},
 	["tree_bark"]						= {["name"] = "tree_bark",  	  		["label"] = "Tree Bark",	  	["weight"] = 50, 		["type"] = "item", 		["image"] = "treebark.png", 		["unique"] = false, 	["useable"] = false, 	["shouldClose"] = true,   	["combinable"] = nil,   ["description"] = ""},
