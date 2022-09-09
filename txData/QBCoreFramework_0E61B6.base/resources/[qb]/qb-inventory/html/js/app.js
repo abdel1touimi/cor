@@ -447,6 +447,21 @@ function FormatItemInfo(itemData) {
                 itemData.info.type +
                 "</span></p>"
             );
+        } else if (itemData.name == "bmx") {
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><strong>COLOURS:</strong><span>" +
+                "</span></p><p><strong>Primary: </strong><span>" +
+                itemData.info.prim +
+                "</span></p><p><strong>Secondary: </strong><span>" +
+                itemData.info.sec +
+                "</span></p><p><strong>Pearlescent: </strong><span>" +
+                itemData.info.perl +
+                "</span></p>" +
+                "</span></p><p><strong>Plate: </strong><span>" +
+                itemData.info.plate +
+                "</span></p>"
+            );
         } else if (itemData.name == "weaponlicense") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(

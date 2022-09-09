@@ -476,6 +476,9 @@ QBShared.Items = {
 	-- mt-crafting 2.0
 	["mesa_craft"]  	= {["name"] = "mesa_craft", 			["label"] = "Crafting table", 								["weight"] = 70000, 		["type"] = "item", 			["image"] = "mesa_craft.png", 				["unique"] = false, 	["useable"] = true, 	["shouldClose"] = true,    ["combinable"] = nil,   ["description"] = ""},
 
+	-- bmx
+	['bmx'] 			 		 = {['name'] = 'bmx', 			  	['label'] = 'Bmx', 			['weight'] = 0, 		['type'] = 'item', 		['image'] = 'bmx.png', 	['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'A BMX Bike'},
+
 	-- logger
 	["tree_lumber"]						= {["name"] = "tree_lumber",  	  		["label"] = "Lumber",	  		["weight"] = 50, 		["type"] = "item", 		["image"] = "lumber.png", 			["unique"] = false, 	["useable"] = false, 	["shouldClose"] = true,   	["combinable"] = nil,   ["description"] = ""},
 	["tree_bark"]						= {["name"] = "tree_bark",  	  		["label"] = "Tree Bark",	  	["weight"] = 50, 		["type"] = "item", 		["image"] = "treebark.png", 		["unique"] = false, 	["useable"] = false, 	["shouldClose"] = true,   	["combinable"] = nil,   ["description"] = ""},

@@ -2160,6 +2160,11 @@ QBCore.Commands.Add("giveitem", "Give An Item (Admin Only)", {{name="id", help="
 					info.quality = 100
 				elseif itemData["name"] == "harness" then
 					info.uses = 20
+				elseif itemData["name"] == "bmx" then
+					info.prim = math.random(0, 100)
+					info.sec = math.random(0, 100)
+					info.per = math.random(0, 100)
+					info.plate = "Spawned"
 				elseif itemData["name"] == "markedbills" then
 					info.worth = math.random(5000, 10000)
 				elseif itemData["name"] == "labkey" then
