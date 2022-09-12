@@ -3,6 +3,8 @@ local PlayerData = QBCore.Functions.GetPlayerData()
 local isLoggedIn = LocalPlayer.state.isLoggedIn
 local playerPed = PlayerPedId()
 local peds = {}
+local playerPot = 0
+local actualBet = 0
 
 local function addPed(options)
   options.model = type(options.model) == 'string' and joaat(options.model) or options.model
@@ -23,6 +25,10 @@ local function addPed(options)
     icon = 'fa-solid fa-play',
     action = function(entity)
         if IsPedAPlayer(entity) then return false end
+        local playerData = QBCore.Functions.GetPlayerData()
+        if (playerData.money.cash < 100) then
+          QBCore.Functions.Notify("You're Broke GET OUT!", 'error')
+        end
         TriggerEvent('pp2-blackjack:client:OpenMenu')
     end,
   }
@@ -41,18 +47,95 @@ local function initPeds()
   end
 end
 
-RegisterNetEvent('pp2-blackjack:client:OpenMenu', function()
-  SetNuiFocus(true, true)
-  SendNUIMessage({
-      action = "openBlackJackTable"
-  })
-end)
-
-RegisterNUICallback('close', function(_, cb)
+local function sendCloseNui()
   SetNuiFocus(false, false)
   SendNUIMessage({
       action = "closeBlackJackTable"
   })
+end
+
+RegisterNetEvent('pp2-blackjack:client:OpenMenu', function()
+  local playerData = QBCore.Functions.GetPlayerData()
+  SetNuiFocus(true, true)
+  SendNUIMessage({
+      action = "openBlackJackTable",
+      playerMaxPot = playerData.money.cash
+  })
+end)
+
+RegisterNUICallback('close', function(data, cb)
+  sendCloseNui()
+  if playerPot ~= nil and playerPot > 0 then
+    TriggerServerEvent("pp2-blackjack:server:partyTerminated", playerPot)
+    PlaySoundFrontend(-1, "Mission_Pass_Notify", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0)
+  else
+    PlaySoundFrontend(-1, "ERROR", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+  end
+  playerPot = 0
+  actualBet = 0
+  cb("ok")
+end)
+
+RegisterNUICallback('start', function(data, cb)
+  local amount = tonumber(data.amount)
+  local playerData = QBCore.Functions.GetPlayerData()
+  if amount ~= nil and amount > 0 and amount <= playerData.money.cash then
+    PlaySoundFrontend(-1, "ERROR", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1)
+    SendNUIMessage({
+        action = "startParty",
+        amount = amount,
+    })
+    playerPot = amount
+    TriggerServerEvent("pp2-blackjack:server:partyStarted", amount)
+    cb("ok")
+  end
+  cb(nil)
+end)
+
+RegisterNUICallback('deal', function(data, cb)
+  local bet = tonumber(data.bet)
+  if bet ~= nil and bet > 0 and bet <= playerPot then
+    playerPot = playerPot - bet
+    actualBet = bet
+  else
+    sendCloseNui()
+    QBCore.Functions.Notify("You're a cheater GET OUT!", 'error')
+  end
+  cb(nil)
+end)
+
+RegisterNUICallback('doubledown', function(data, cb)
+  if actualBet > 0 and actualBet <= playerPot then
+    playerPot = playerPot - actualBet
+    actualBet = actualBet + actualBet
+  else
+    sendCloseNui()
+    QBCore.Functions.Notify("You're a cheater GET OUT!", 'error')
+  end
+  cb(nil)
+end)
+
+RegisterNUICallback('lost', function(data, cb)
+  actualBet = 0
+  cb(nil)
+end)
+
+RegisterNUICallback('win', function(data, cb)
+  playerPot = playerPot + (actualBet * 2)
+  actualBet = 0
+  cb(nil)
+end)
+
+RegisterNUICallback('blackjackwin', function(data, cb)
+  playerPot = playerPot + (actualBet * 2.5)
+  actualBet = 0
+  cb(nil)
+end)
+
+RegisterNUICallback('draw', function(data, cb)
+  playerPot = playerPot + actualBet
+  actualBet = 0
+  cb(nil)
 end)
 
 CreateThread(function()

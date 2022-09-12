@@ -3,32 +3,74 @@ var playerHand = [];
 var currentHand;
 var deck;
 var deckCount;
-var countCards = true;
-var bets = new Bets();
+var countCards = false;
+var playerMaxPot = 0;
+var bets = new Bets(0);
 
 var openBlackJackTable = function () {
   $("#pp2-blackjack-container").fadeIn(150, startBlackJackTable);
 };
 
 var closeBlackJackTable = function () {
-  $("#pp2-blackjack-container").fadeOut(150, resetBlackJackTable);
+  $("#pp2-blackjack-container").fadeOut(150, function() { resetBlackJackTable(0);});
 };
 
 var sendCloseEvent = function () {
-  $.post('https://pp2-blackjack/close');
-}
+  $.post("https://pp2-blackjack/close");
+};
+
+var sendStartEvent = function (inputPot) {
+  $.post(
+    "https://pp2-blackjack/start",
+    JSON.stringify({
+      amount: parseInt(inputPot),
+    })
+  );
+};
+
+var sendDealEvent = function (bet) {
+  $.post(
+    "https://pp2-blackjack/deal",
+    JSON.stringify({
+      bet: parseInt(bet),
+    })
+  );
+};
+
+var sendDoubleDownEvent = function () {
+  $.post("https://pp2-blackjack/doubledown");
+};
+
+var sendLostEvent = function () {
+  $.post("https://pp2-blackjack/lost");
+};
+
+var sendWinEvent = function () {
+  $.post("https://pp2-blackjack/win");
+};
+
+var sendDrawEvent = function () {
+  $.post("https://pp2-blackjack/draw");
+};
+
+var sendBlackJackWinEvent = function () {
+  $.post("https://pp2-blackjack/blackjackwin");
+};
 
 var cancelBet = function () {
   $("#messages").html("<h2>CANCELED</h2>");
-  bets.push();
+  bets.pot += bets.bet;
+  bets.bet = 0;
+  bets.updateAmounts();
+  bets.disableDeal();
 };
 
 var startBlackJackTable = function () {
   welcome();
-}
+};
 
-var resetBlackJackTable = function () {
-  bets = new Bets();
+var resetBlackJackTable = function (inputPot) {
+  bets = new Bets(inputPot);
   dealerHand = new Hand();
   playerHand = new Hand();
 
@@ -41,11 +83,11 @@ var resetBlackJackTable = function () {
   $(".chips div").removeClass("disabled");
   updatePlayerScore();
   updateDealerScore();
-}
+};
 
 // Bets Object
-function Bets() {
-  this.pot = 500;
+function Bets(inputPot) {
+  this.pot = inputPot;
   this.bet = 0;
   $("#bet").text("$0");
   $("#pot").text("$" + this.pot);
@@ -82,23 +124,27 @@ Bets.prototype.addBet = function (amount) {
   }
 };
 Bets.prototype.winner = function () {
+  sendWinEvent()
   this.pot += this.bet * 2;
   this.bet = 0;
   this.updateAmounts();
   this.disableDeal();
 };
 Bets.prototype.loser = function () {
+  sendLostEvent()
   this.bet = 0;
   this.updateAmounts();
   this.disableDeal();
 };
 Bets.prototype.push = function () {
+  sendDrawEvent()
   this.pot += this.bet;
   this.bet = 0;
   this.updateAmounts();
   this.disableDeal();
 };
 Bets.prototype.blackJackWinner = function () {
+  sendBlackJackWinEvent()
   this.pot += parseInt(this.bet * 2.5);
   this.bet = 0;
   this.updateAmounts();
@@ -247,6 +293,8 @@ Deck.prototype.numCardsLeft = function () {
 
 // Initial deal, deals 2 cards to player, 2 to dealer
 function deal() {
+  // send seal event to update playerPotAndBet
+  sendDealEvent(bets.betAmount());
   // If no card has been dealt yet, make a new deck
   if ($("#player-hand").children().length === 0) {
     deck = new Deck();
@@ -421,38 +469,56 @@ function updateDealerScore() {
 
 // Sweet Alert Pop Up Functions
 function outOfChips() {
-  swal(
-    {
-      title: "You're Out of Chips!",
-      text: "That's too bad. \n Do you want to play again?",
-      imageUrl: "img/chip-2.png",
-    },
-    function (isConfirm) {
-      if (isConfirm) {
-        bets = new Bets();
-        $("#player-hand").children().remove();
-        $("#dealer-hand").children().remove();
-      }
-    }
-  );
+  swal({
+    title: "You're Out of Chips!",
+    text: "That's too bad. \n You can come play again.",
+  }).then(() => {
+    sendCloseEvent();
+  });
 }
 function notEnoughChips() {
   swal({
     title: "Insufficient Chips!",
     text: "You don't have enough chips for that.",
-    imageUrl: "img/chip-2.png",
+    icon: "warning",
   });
 }
 function welcome() {
   swal({
     title: "Welcome to Blackjack!",
-    text: "Table minimum is $5. Click any of the chips to start betting. \n Ready to play?",
-    imageUrl: "img/chip.png",
+    text: "Table minimum is $100.\nTable maximum is $"+playerMaxPot+".\n How much you want to bet?",
+    closeOnEsc: false,
+    closeOnClickOutside: false,
+    content: {
+      element: "input",
+      attributes: {
+        placeholder: "Min bet is $100",
+        type: "number",
+        min: "100",
+        max: playerMaxPot,
+      },
+    },
+    icon: "info",
+    button: {
+      text: "Start",
+      closeModal: false,
+    },
+  }).then((value) => {
+    if (value < 100 || value > playerMaxPot) {
+      swal("Invalid value", "Your bet is invalid!\nTry again", "error")
+      .then(() => {
+        sendCloseEvent();
+      });
+    } else {
+      swal("Ok", "Your can start now.\n Click any of the chips to start betting", "success")
+      .then(() => {
+        sendStartEvent(value);
+      });
+    }
   });
 }
 
 $(function () {
-  
   // Button click event handlers
   $("#deal-button").click(deal).addClass("disabled");
   $("#doubledown").click(doubleDown);
@@ -474,17 +540,18 @@ $(function () {
   $("#chip100").click(function () {
     bets.addBet(100);
   });
-  window.addEventListener('message', function(event) {
-    console.log(event);
-    console.log(event.data);
-    console.log(event.data.action);
-      switch(event.data.action) {
-          case "openBlackJackTable":
-              openBlackJackTable();
-              break;
-          case "closeBlackJackTable":
-              closeBlackJackTable();
-              break;
-      }
-  })
+  window.addEventListener("message", function (event) {
+    switch (event.data.action) {
+      case "openBlackJackTable":
+        playerMaxPot = event.data.playerMaxPot;
+        openBlackJackTable();
+        break;
+      case "startParty":
+        resetBlackJackTable(event.data.amount);
+        break;
+      default:
+        closeBlackJackTable();
+        break;
+    }
+  });
 });
