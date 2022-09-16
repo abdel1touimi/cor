@@ -1,5 +1,5 @@
 Config.SitableModels = {
-	{ model = -659419801, isAlreadyFreezed = true, scenario = 'PROP_HUMAN_SEAT_BENCH', verticalOffset = -0.5, forwardOffset = 0.0, leftOffset = 0.0 },
+	{ model = -1195678770, isAlreadyFreezed = true, scenario = 'PROP_HUMAN_SEAT_BENCH', verticalOffset = -0.5, forwardOffset = 0.0, leftOffset = 0.0 },
 }
 Config.Sitable = {
 	--Only verticalOffset works right now!

@@ -1573,6 +1573,23 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				AddToGlovebox(plate, toSlot, fromSlot, itemInfo["name"], fromAmount, fromItemData.info)
 			elseif QBCore.Shared.SplitStr(toInventory, "-")[1] == "stash" then
 				local stashId = QBCore.Shared.SplitStr(toInventory, "-")[2]
+				if string.find(stashId, "FishingBox") then
+					local fishTable = {
+						stingray = true,
+						flounder = true,
+						codfish = true,
+						mackerel = true,
+						bass = true,
+						killerwhale = true,
+						dolphin = true,
+						sharkhammer = true,
+						sharktiger = true,
+					}
+					if not fishTable[fromItemData.name] then
+						QBCore.Functions.Notify(src, "Only fish can be stored in FishingBox", "error")
+						return
+					end
+				end
 				local toItemData = Stashes[stashId].items[toSlot]
 				RemoveItem(src, fromItemData.name, fromAmount, fromSlot)
 				TriggerClientEvent("inventory:client:CheckWeapon", src, fromItemData.name)

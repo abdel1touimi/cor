@@ -462,6 +462,11 @@ function FormatItemInfo(itemData) {
                 itemData.info.plate +
                 "</span></p>"
             );
+        } else if (itemData.name == "ladder") {
+            $(".item-info-title").html("<p>" + itemData.label + "</p>");
+            $(".item-info-description").html(
+                "<p><span>"+ itemData.description +"</span></p>"
+            );
         } else if (itemData.name == "weaponlicense") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(

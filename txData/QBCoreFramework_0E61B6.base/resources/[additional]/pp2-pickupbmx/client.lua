@@ -37,7 +37,6 @@ end
 
 RegisterNetEvent('pp2-pickupbmx:client:fetchBMX', function(bmxEntity)
   local playerPed = PlayerPedId()
-  local bmxModel = GetEntityModel(bmxEntity)
   local hasItem = QBCore.Functions.HasItem('bmx')
   if not hasItem then
     local colorPrimary, colorSecondary = GetVehicleColours(bmxEntity)

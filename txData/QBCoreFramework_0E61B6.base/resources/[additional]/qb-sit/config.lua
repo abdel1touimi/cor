@@ -8,7 +8,7 @@ Config.GetUpText = 'E - Get Up'
 Config.GetUpKey = 38
 
 Config.InteractablesModels = {
-	-659419801,
+	-1195678770,
 }
 
 Config.Interactables = {

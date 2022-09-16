@@ -47,6 +47,13 @@ local function initPeds()
   end
 end
 
+local function deletePeds()
+  if not next(peds) then return end
+  for i = 1, #peds do
+    DeletePed(peds[i])
+  end
+end
+
 local function sendCloseNui()
   SetNuiFocus(false, false)
   SendNUIMessage({
@@ -136,6 +143,11 @@ RegisterNUICallback('draw', function(data, cb)
   playerPot = playerPot + actualBet
   actualBet = 0
   cb(nil)
+end)
+
+AddEventHandler('onResourceStop', function(resource)
+  if resource ~= GetCurrentResourceName() then return end
+  deletePeds()
 end)
 
 CreateThread(function()
