@@ -1217,6 +1217,25 @@ function optionSwitch(
 function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
     fromData = $fromInv.find("[data-slot=" + $fromSlot + "]").data("item");
     toData = $toInv.find("[data-slot=" + $toSlot + "]").data("item");
+
+    if($toInv.attr("data-inventory").includes("stash-FishingBox")) {
+        var fishTable = {
+            stingray : true,
+            flounder : true,
+            codfish : true,
+            mackerel : true,
+            bass : true,
+            killerwhale : true,
+            dolphin : true,
+            sharkhammer : true,
+            sharktiger : true,
+        };
+        if (!fishTable[fromData.name]) {
+            InventoryError($fromInv, $fromSlot);
+            return;
+        }
+    }
+
     var otherinventory = otherLabel.toLowerCase();
 
     if (otherinventory.split("-")[0] == "dropped") {
