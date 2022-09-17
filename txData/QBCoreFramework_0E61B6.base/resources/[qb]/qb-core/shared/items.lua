@@ -478,6 +478,7 @@ QBShared.Items = {
 
 	-- bmx
 	['bmx'] 			 		 = {['name'] = 'bmx', 			  	['label'] = 'Bmx', 			['weight'] = 5000, 		['type'] = 'item', 		['image'] = 'bmx.png', 	['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'A BMX Bike'},
+
 	-- ladder
 	['ladder'] 			 		 = {['name'] = 'ladder', 			  	['label'] = 'Ladder', 			['weight'] = 5000, 		['type'] = 'item', 		['image'] = 'ladder.png', 	['unique'] = false, 	['useable'] = true, 	['shouldClose'] = true,	   ['combinable'] = nil,   ['description'] = 'A wooden ladder'},
 
